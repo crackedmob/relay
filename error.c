@@ -44,7 +44,7 @@ int sendErrorMessage(int socket, int status_code){
             "Content-Type: text/html\r\nDate: %s\r\n\r\n"
             "<HTML><BODY><H1>404 Not Found</H1></BODY></HTML>",
             currentTime);
-        printf("[error] 404 Not Found")
+        printf("[error] 404 Not Found");
 
         case 500:
             snprintf(str, sizeof(str),
@@ -74,10 +74,12 @@ int sendErrorMessage(int socket, int status_code){
         break;
 
     default:
-        return -1;
+        return -1; // unrecognized status code
     }
 
     send(socket, str, strlen(str), 0);
-
+    // send the formatted error string to the client over the socket
+    // the client (browser/curl) reads this and displays the error
     return 1;
 }
+// %s this is where the current time gets inserted in the format string
