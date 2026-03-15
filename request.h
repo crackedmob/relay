@@ -19,4 +19,8 @@ int connectRemoteServer(char *host_addr, int port_num);
 // returns 0 on success, -1 on failure
 int handle_request(int clientSocket, struct ParsedRequest *request, char *tempReq);
 
+// checks if the HTTP version s supported
+// returns 1 if supported, -1 if not
+int checkHTTPversion(char *msg);
+
 #endif

@@ -11,7 +11,12 @@
 #include <arpa/inet.h>
 #include <unistd.h>         // for close()
 
-
+int checkHTTPversion(char *msg){
+    if(strncmp(msg, "HTTP/1.1", 8) == 0 || strncmp(msg, "HTTP/1.0", 8) == 0){
+        return 1;
+    }
+    return -1;
+}
 int connectRemoteServer(char *host_addr, int port_num){
     // create a brand new TCP socket for this connection
     // AF_INET = IPv4, SOCK_STREAM = TCP
