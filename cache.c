@@ -29,7 +29,7 @@ static void remove_cache_element_unsafe(){
     if(head == NULL) // nothing to remove, cache empty
         return;
 
-    cache_element *prev = head; // lags one step behind , a pointer
+    // cache_element *prev = head; // lags one step behind , a pointer
     cache_element *cur = head; // walks the list
     cache_element *lru = head; // tracks the least recently used node
     cache_element *lru_prev = head; // tracks the node before lru (for unlinking)
@@ -41,7 +41,7 @@ static void remove_cache_element_unsafe(){
             lru = cur->next; // new candidate for eviction
             lru_prev = cur; // remember the node before it
         }
-        prev = cur;
+        // prev = cur;
         cur = cur->next;
     }
         // unlink lru from the list
@@ -86,10 +86,10 @@ cache_element *find(char *url){ // find() - lock , it walks the list comparing U
 
     if(site == NULL){
         printf("[cache] miss: %s\n", url);
-
+    }
     pthread_mutex_unlock(&lock);
     return site; // NULL on miss , pointer to element on hit
-    }
+    
 }
 
 void remove_cache_element(){

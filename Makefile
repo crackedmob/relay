@@ -1,15 +1,39 @@
-CC=g++
-CFLAGS= -g -Wall 
+# compiler and flags
+CC	= gcc
+CFLAGS = -Wall -Wextra -g
+LIBS	= -lpthread
 
-all: proxy
 
-proxy: proxy_server_with_cache.c
-	$(CC) $(CFLAGS) -o proxy_parse.o -c proxy_parse.c -lpthread
-	$(CC) $(CFLAGS) -o proxy.o -c proxy_server_with_cache.c -lpthread
-	$(CC) $(CFLAGS) -o proxy proxy_parse.o proxy.o -lpthread
+# final binary name
+TARGET	= relay
 
+# all source files
+SRCS = main.c cache.c error.c request.c thread.c proxy_parse.c
+
+
+# object files - same names but .o instead of .c
+OBJS = $(SRCS:.c=.o)
+
+# default target - builds everything
+all: $(TARGET)
+
+# link all object files into the final binary
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET) $(LIBS)
+
+
+# compile each .c file into a .o file
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# clean up coompiled files
 clean:
-	rm -f proxy *.o
+	rm -f $(OBJS) $(TARGET)
 
-tar:
-	tar -cvzf ass1.tgz proxy_server_with_cache.c README Makefile proxy_parse.c proxy_parse.h
+# rebuild from scratch
+rebuild: clean all
+
+
+
+# $< means the source file
+# $@ means the output file

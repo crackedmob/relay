@@ -77,7 +77,7 @@ void *thread_fn(void *socketNew){
             // either MAX_BYTES or whatever is left - whichever is smaller
             int chunk = (size - pos) < MAX_BYTES ? (size - pos) : MAX_BYTES;
             memset(response, 0, MAX_BYTES);
-            memcpy(response, cached->data + pos, chunk);
+            memcpy(response, local_copy + pos, chunk);
             send(socket, response, chunk, 0);
             pos += chunk;
             }

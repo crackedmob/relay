@@ -45,6 +45,7 @@ int sendErrorMessage(int socket, int status_code){
             "<HTML><BODY><H1>404 Not Found</H1></BODY></HTML>",
             currentTime);
         printf("[error] 404 Not Found");
+        break;
 
         case 500:
             snprintf(str, sizeof(str),

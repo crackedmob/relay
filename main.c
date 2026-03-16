@@ -36,6 +36,7 @@ pthread_t tid[MAX_CLIENTS];
 // without this, the proxy just dies instantly leaving sockets open
 // and cache memory unfreed
 void handle_shutdown(int sig){
+    (void)sig; // to tell the compiler that we know we're not using it
     printf("\n[main] shutting down relay...");
 
     // closing the proxy socket causes accept() in the main loop to 
